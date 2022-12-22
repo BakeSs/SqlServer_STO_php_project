@@ -56,7 +56,8 @@ if ($_GET['action'] == 'edit-invoice') {
             <label for="receiver_code">Виберіть приймаючого авто:</label>
             <select name="receiver_code">
                 <? foreach($receivers as $receiver): ?>
-                    <option value="<?=$receiver['code']?>"<?php if ($receiver['code'] == $_GET['receiver_code']) echo ' selected="selected"'; ?>>
+                    <option value="<?=$receiver['code']?>"
+                        <?php if ($receiver['code'] == $_GET['receiver_code']) echo ' selected="selected"'; ?>>
                         <?=$receiver['surname'] . " " . $receiver['name'] . " " . $receiver['father_name']?></option>
                 <? endforeach; ?>
             </select>

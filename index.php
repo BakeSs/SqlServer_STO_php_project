@@ -17,22 +17,13 @@ if ($_GET['action'] == 'delete-mechanic') {
 if ($_GET['action'] == 'edit-mechanic-form') {
   $mechanic = $db->getMechanic($_GET['code'])[0];
   header('Location: mechanic_add_edit.php?code=' . $mechanic['code'] .
-      "&surname=" . $mechanic['surname'] . "&name=" . $mechanic['name'] . "&father_name=" . $mechanic['father_name'] .
-      "&salary_level=" . $mechanic['salary_level'] . "&salary=" . $mechanic['salary']);
+      "&surname=" . $mechanic['surname'] . "&name=" . $mechanic['name'] . "&father_name=" .
+      $mechanic['father_name'] . "&salary_level=" . $mechanic['salary_level'] . "&salary=" .
+      $mechanic['salary']);
 }
 
 if ($_GET['action'] == 'add-mechanic-form') {
     header('Location: mechanic_add_edit.php');
-}
-
-if ($_GET['action'] == 'submit-delete') {
-    $db->submitMechDelete();
-    header('Location: index.php');
-}
-
-if ($_GET['action'] == 'rollback-delete') {
-    $db->rollbackMechDelete();
-    header('Location: index.php');
 }
 
 ?>
@@ -46,7 +37,7 @@ if ($_GET['action'] == 'rollback-delete') {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-    <title> .php page</title>
+    <title>Mechanics list</title>
   <style>
     .content {
       width: 600px;
@@ -105,8 +96,12 @@ if ($_GET['action'] == 'rollback-delete') {
           <td><?=$mechanic['salary_level']?></td>
           <td><?=$mechanic['salary']?></td>
           <td>
-            <a href="?action=edit-mechanic-form&code=<?=$mechanic['code']?>"><button type="button" class="btn btn-primary">Змінити</button></a>
-            <a href="?action=delete-mechanic&code=<?=$mechanic['code']?>"><button type="button" class="btn btn-danger">Видалити</button></a>
+            <a href="?action=edit-mechanic-form&code=<?=$mechanic['code']?>">
+                <button type="button" class="btn btn-primary">Змінити</button>
+            </a>
+            <a href="?action=delete-mechanic&code=<?=$mechanic['code']?>">
+                <button type="button" class="btn btn-danger">Видалити</button>
+            </a>
           </td>
         </tr>
         <? endforeach; ?>

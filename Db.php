@@ -43,7 +43,8 @@ class Db {
   }
 
   public function editMechanic($code, $surname, $name, $father_name, $level, $salary) {
-    sqlsrv_query($this->db,"update mechanics set surname='$surname', name='$name', father_name='$father_name', salary_level=$level, salary=$salary where code=$code");
+    sqlsrv_query($this->db,"update mechanics set surname='$surname', name='$name',
+                     father_name='$father_name', salary_level=$level, salary=$salary where code=$code");
   }
 
     public function getInvoices(){
@@ -56,15 +57,6 @@ class Db {
                 inner join parts p on i.part_code = p.code";
         $res = sqlsrv_query($this->db, $sql);
 
-        while ($row = sqlsrv_fetch_array($res)) {
-            $data[] = $row;
-        }
-        return $data;
-    }
-
-    public function getInvoicesSelectFormat() {
-        $data = [];
-        $res = sqlsrv_query($this->db, "select * from invoices");
         while ($row = sqlsrv_fetch_array($res)) {
             $data[] = $row;
         }
@@ -91,7 +83,9 @@ class Db {
     }
 
     public function editInvoice($code, $rc, $mc, $wc, $pc, $price) {
-        sqlsrv_query($this->db,"update invoices set receiver_code=$rc, mechanic_code=$mc, work_code=$wc, part_code=$pc, price=$price where code=$code");
+        sqlsrv_query($this->db,"update invoices set receiver_code=$rc, mechanic_code=$mc,
+                    work_code=$wc, part_code=$pc, price=$price where code=$code");
+        sqlsrv_query($this->db, "exec updateInvoiceTime @code=" . $code);
     }
 
     public function getRecievers() {
